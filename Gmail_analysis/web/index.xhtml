@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view locale="#{login.odabraniJezik}" >
+        <h:head>
+            <title>#{j.naslov}</title>
+        </h:head>
+        <h:body>
+            <h1>Gmail Verifier</h1>
+            <h:form>
+                <h:selectOneRadio value="#{login.odabraniJezik}">
+                    <f:selectItems value="#{login.izbornikJezika}"
+                                   var="c" itemLabel="#{c.labela}"
+                                   itemValue="#{c.vrijednost}"/>
+                </h:selectOneRadio>
+                <h:commandButton value="#{j.gumb_promijeniJezik}" action="#{login.odaberiJezik}"/><br/><br/>
+
+                <h:outputLabel value="#{j.labela_korisnickoIme}" />
+                <h:inputText value="#{login.korIme}" /><br/>
+                <h:outputLabel value="#{j.labela_lozinka}" />
+                <h:inputSecret value="#{login.lozinka}" /><br/>
+                <h:commandButton value="#{j.gumb_provijeri}" action="#{login.autentikacija()}" /><br/>
+
+                <p:dataTable id = "mail" value="#{login.inboxList}" var="m" rendered="#{login.prikaz}" paginator="true"
+                             rows="5" paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                             rowsPerPageTemplate="5,10,15">>
+                    <p:column headerText="Email" width="20%">
+                        <h:outputText value="#{m.verifikacija.email}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_subjket}" width="25%">
+                        <h:outputText value="#{m.subject}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_rezultat}">
+                        <h:outputText value="#{m.verifikacija.rezultat}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_genMail}">
+                        <h:outputText value="#{m.verifikacija.generiraniMail}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_rasp}">
+                        <h:outputText value="#{m.verifikacija.jednokratnaUporaba}"/>
+                    </p:column>
+                    <p:column headerText="Web Mail">
+                        <h:outputText value="#{m.verifikacija.webMail}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_mx}">
+                        <h:outputText value="#{m.verifikacija.mxRecords}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_SmtpServer}">
+                        <h:outputText value="#{m.verifikacija.smtpServer}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_SmtpProvjera}">
+                        <h:outputText value="#{m.verifikacija.smtpCheck}"/>
+                    </p:column>
+                    <p:column headerText="#{j.tablica_prihvat}">
+                        <h:outputText value="#{m.verifikacija.acceptAll}"/>
+                    </p:column>
+                </p:dataTable>
+                <h:commandButton id="zatvarac" value="#{j.gumb_zatvori}" rendered="#{login.prikaz}" action="#{login.zatvori()}" />
+            </h:form>
+            <hr></hr>
+            <h4>#{j.naslov_oAplikacij}</h4>
+            <p>#{j.tekst_oAplikaciji}</p>
+            <ul>
+                <li><p><b>#{j.tablica_rezultat}</b> - #{j.obj_razultat}</p></li>
+                <li><p><b>#{j.tablica_genMail}</b> - #{j.obj_genMail}</p></li>
+                <li><p><b>#{j.tablica_rasp}</b> - #{j.obj_rasp}</p></li>
+                <li><p><b>Web Mail</b> - #{j.obj_webmail}</p></li>
+                <li><p><b>#{j.tablica_mx}</b> - #{j.obj_mx}</p></li>
+                <li><p><b>#{j.tablica_SmtpServer}</b> - #{j.obj_server}</p></li>
+                <li><p><b>#{j.tablica_SmtpProvjera}</b> - #{j.obj_check}</p></li>
+                <li><p><b>#{j.tablica_prihvat}</b> - #{j.obj_prihvat}</p></li>
+            </ul>
+            <hr></hr>
+            <h4>#{j.naslov_zahtjevi}</h4>
+            <ul>
+                <li><b>#{j.zah_1}</b></li>
+                <li><b>#{j.zah_2}</b></li>
+                <li><b>#{j.zah_3}</b></li>
+                <li><b>#{j.zah_4}</b></li>
+            </ul>
+            <hr></hr>
+            <h4>#{j.naslov_API}</h4>
+            <ul>
+                <li><a href="https://hunter.io/api">#{j.api_kor}</a></li>
+            </ul>
+        </h:body>
+    </f:view>
+</html>
+
